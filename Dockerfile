@@ -1,13 +1,13 @@
 FROM debian
 MAINTAINER Jake Gaylor <jake@nesteddata.com>
 
-COPY scripts /opt/meteord
+ADD scripts /opt/meteord
 
 RUN bash /opt/meteord/install_base.sh
 RUN bash /opt/meteord/install_node.sh
 RUN bash /opt/meteord/install_phantomjs.sh
 
-ONBUILD COPY ./app /app
+ONBUILD ADD ./app /app
 ONBUILD RUN bash /opt/meteord/meteord-build.sh
 
 ENTRYPOINT bash /opt/meteord/run_app.sh
