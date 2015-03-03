@@ -1,6 +1,8 @@
 #!/bin/bash
 curl https://install.meteor.com | /bin/sh
-sleep 5
+echo "sleeping"
+sleep 120
+echo "done sleeping"
 cd /app
 meteor build --directory /tmp/the-app
 
