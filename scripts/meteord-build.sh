@@ -1,11 +1,11 @@
 #!/bin/bash
 curl https://install.meteor.com | /bin/sh
+npm install --silent -g demeteorized
 cd /app
-ls
-pwd
-meteor build --directory /tmp/the-app
 
-cd /tmp/the-app/bundle/programs/server/
+demeteorized --output /tmp/the-app
+
+cd /tmp/the-app
 npm i
 
 mv /tmp/the-app/bundle /built_app
