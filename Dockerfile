@@ -1,5 +1,5 @@
 FROM debian
-MAINTAINER MeteorHacks Pvt Ltd.
+MAINTAINER Jake Gaylor <jake@nesteddata.com>
 
 COPY scripts /opt/meteord
 
