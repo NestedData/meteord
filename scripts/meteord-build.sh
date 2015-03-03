@@ -3,9 +3,10 @@ curl https://install.meteor.com | /bin/sh
 npm install --silent -g demeteorized
 cd /app
 
-demeteorized --output /tmp/the-app
+meteor build --directory /tmp/the-app
 
-cd /tmp/the-app
+
+cd /tmp/the-app/bundle/programs/server/
 npm i
 
 mv /tmp/the-app/bundle /built_app
