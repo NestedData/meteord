@@ -1,5 +1,8 @@
 #!/bin/bash
-(curl https://install.meteor.com | /bin/sh) && cd /app
+cd /app
+ls
+curl https://install.meteor.com | /bin/sh
+
 meteor build --directory /tmp/the-app
 
 cd /tmp/the-app/bundle/programs/server/
