@@ -9,5 +9,5 @@ RUN bash /opt/meteord/install_phantomjs.sh
 
 ONBUILD ADD ./app /app
 ONBUILD RUN bash /opt/meteord/meteord-build.sh
-
+EXPOSE 3000
 ENTRYPOINT bash /opt/meteord/run_app.sh
