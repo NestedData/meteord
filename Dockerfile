@@ -1,6 +1,6 @@
 FROM debian
 MAINTAINER Jake Gaylor <jake@nesteddata.com>
-
+RUN pwd
 ADD scripts /opt/meteord
 
 RUN bash /opt/meteord/install_base.sh
