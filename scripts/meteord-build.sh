@@ -1,6 +1,6 @@
 #!/bin/bash
 curl https://install.meteor.com | /bin/sh
-npm install --silent -g demeteorized
+npm install --silent -g demeteorizer
 cd /app
 
 # meteor build --directory /tmp/the-app
