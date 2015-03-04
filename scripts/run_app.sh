@@ -7,5 +7,5 @@ if [[ $REBULD_NPM_MODULES ]]; then
 fi
 
 export PORT=3000
-echo "Now starting meteor app on port:$PORT"
+echo "!!Now starting meteor app on port:$PORT"
 node main.js
