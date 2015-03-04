@@ -1,8 +1,13 @@
+**Note: different from meteorhacks/meteord, this package looks for a nested app, at /app**
+
 ## MeteorD - Docker Runtime for Meteor Apps 
 
-This is a derivative of some work by meteorhacks. Our app is located in a different place and I wasn't able to get stock MeteorD working, so I've removed some stuff I didn't want and just tried to get it to work. Ideally we will go back to a fork of meteord that just varies on internal app location.
+There are two main ways you can use Docker with Meteor apps. They are:
 
-The only feature of this package it to build a docker image from a meteor applications source available at /app of a repo.
+1. Build a Docker image for your app
+2. Running a Meteor bundle with Docker
+
+**MeteorD supports these two ways. Let's see how to use MeteorD**
 
 ### 1. Build a Docker image for your app
 
@@ -13,7 +18,7 @@ For that, you can use `meteorhacks/meteord` as your base image. Magically, that'
 Add following `Dockerfile` into the root of your app:
 
 ~~~shell
-FROM nesteddata/meteord
+FROM meteorhacks/meteord
 MAINTAINER Your Name
 ~~~
 
@@ -35,3 +40,55 @@ docker run -d \
 ~~~
 
 Then you can access your app from the port 8080 of the host system.
+
+### 2. Running a Meteor bundle with Docker
+
+For this you can directly use the MeteorD to run your meteor bundle. MeteorD can accept your bundle either from a local mount or from the web. Let's see:
+
+#### 2.1 From a Local Mount
+
+~~~shell
+docker run -d \
+    -e ROOT_URL=http://yourapp.com \
+    -e MONGO_URL=mongodb://url \
+    -e MONGO_OPLOG_URL=mongodb://oplog_url \
+    -v /mybundle_dir:/bundle \
+    -p 8080:80 \
+    meteorhacks/meteord
+~~~
+
+With this method, MeteorD looks for the tarball version of the meteor bundle. So, you should build the meteor bundle for `os.linux.x86_64` and put it inside the `/bundle` volume. This is how you can build a meteor bundle.
+
+~~~shell
+meteor build --architecture=os.linux.x86_64 ./
+~~~
+
+#### 2.1 From the Web
+
+You can also simply give URL of the tarball with `BUNDLE_URL` environment variable. Then MeteorD will fetch the bundle and run it. This is how to do it:
+
+~~~shell
+docker run -d \
+    -e ROOT_URL=http://yourapp.com \
+    -e MONGO_URL=mongodb://url \
+    -e MONGO_OPLOG_URL=mongodb://oplog_url \
+    -e BUNDLE_URL=http://mybundle_url_at_s3.tar.gz \
+    -p 8080:80 \
+    meteorhacks/meteord
+~~~
+
+
+### Rebuilding Binary Modules
+
+Sometimes, you need to rebuild binary npm modules. If so, expose `REBULD_NPM_MODULES` environment variable. It will take couple of seconds to complete the rebuilding process.
+
+~~~shell
+docker run -d \
+    -e ROOT_URL=http://yourapp.com \
+    -e MONGO_URL=mongodb://url \
+    -e MONGO_OPLOG_URL=mongodb://oplog_url \
+    -e BUNDLE_URL=http://mybundle_url_at_s3.tar.gz \
+    -e REBULD_NPM_MODULES=1 \
+    -p 80:3000 \
+    meteorhacks/meteord
+~~~
