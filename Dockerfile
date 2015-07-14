@@ -1,5 +1,5 @@
 FROM debian
-MAINTAINER Jake Gaylor <jake@nesteddata.com>
+MAINTAINER Jake Gaylor <jhgaylor@gmail.com>
 
 ADD scripts /opt/meteord
 
